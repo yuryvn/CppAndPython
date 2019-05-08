@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CppAndPython/Release/CppAndPython.tlog
+/CppAndPython/Release
+*.suo
