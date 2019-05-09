@@ -4,6 +4,8 @@
 #include "pch.h"
 #include <iostream>
 #include <pybind11/embed.h>
+#include <vector>
+#include <pybind11/stl.h>
 namespace py = pybind11;
 
 int main()
@@ -15,21 +17,27 @@ int main()
 	py::module sys = py::module::import("sys");
 	py::print(sys.attr("version"));
 
+
 	py::module plotting = py::module::import("plotting");
-	double *OX;
-	double *OY;
-	OX = new double(10);
-	OY = new double(10);
+	
+	std::vector<double>OX, OY;
+	OX.resize(10);
+	OY.resize(10);
+
 	for (int i = 0; i < 10; i++) {
 		OX[i] = (double)i;
+		std::cout << OX[i]<<"\n";
 		OY[i] = 1.0;
 	}
+	
 	py::object result = plotting.attr("add")(1, 2 );
 	int n = result.cast<int>();
+	int y = n;
 	assert(n == 3);
+	std::cout << y << "\n";
 
-	//py::object result = plotting.attr("plot1graph")();
-	delete OX, OY;
+	py::object result2 = plotting.attr("plot1graph")(OX, OY);//vectors are auto coverterted!
+	bool ty = result2.cast<bool>();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
