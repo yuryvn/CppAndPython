@@ -5,3 +5,7 @@
 /CppAndPython/Release/CppAndPython.tlog
 /CppAndPython/Release
 *.suo
+/CppAndPython/Debug
+/CppAndPython/x64
+/CppAndPython/.vs/CppAndPython/v15
+*.pyc

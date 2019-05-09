@@ -3,12 +3,33 @@
 
 #include "pch.h"
 #include <iostream>
-
+#include <pybind11/embed.h>
+namespace py = pybind11;
 
 int main()
 {
 	
     std::cout << "Hello World!\n"; 
+	py::scoped_interpreter guard{};//start the interpreter and keep it alive
+	py::print("hello world");
+	py::module sys = py::module::import("sys");
+	py::print(sys.attr("version"));
+
+	py::module plotting = py::module::import("plotting");
+	double *OX;
+	double *OY;
+	OX = new double(10);
+	OY = new double(10);
+	for (int i = 0; i < 10; i++) {
+		OX[i] = (double)i;
+		OY[i] = 1.0;
+	}
+	py::object result = plotting.attr("add")(1, 2 );
+	int n = result.cast<int>();
+	assert(n == 3);
+
+	//py::object result = plotting.attr("plot1graph")();
+	delete OX, OY;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
